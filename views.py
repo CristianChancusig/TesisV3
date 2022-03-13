@@ -10,9 +10,8 @@ import cv2
 from django.views.decorators import gzip
 from matplotlib.style import context
 
-import PaginaDjango
 from .forms import *
-from PaginaDjango import resnet50
+import resnet50
 
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from msrest.authentication import CognitiveServicesCredentials
@@ -45,8 +44,8 @@ listaOb = []
 contImOb1 = 0
 contImOb2 = 0
 direccionDavid = "D:/David/ESPE/TESIS PROYECTO/PaginaDjango/PaginaDjango/static/Imagenes/Pr.jpg"
-direccionCristian = "PaginaDjango/static/Imagenes/Pr.jpg"
-dirCrisDatos = "PaginaDjango/Datos/"
+direccionCristian = "static/Imagenes/Pr.jpg"
+dirCrisDatos = "Datos/"
 
 
 def Red(request):
@@ -233,15 +232,15 @@ def Train(request):
                 fileCarp = request.POST['txtTag']
                 DatosEn = DatosEntr(request)
                 contexto.update(DatosEn)
-                if(os.path.exists('PaginaDjango/Datos/'+fileCarp)):
+                if(os.path.exists('Datos/'+fileCarp)):
                     print("Ya existe esa carpeta")
                 else:
-                    os.mkdir('PaginaDjango/Datos/'+fileCarp)
+                    os.mkdir('Datos/'+fileCarp)
             else:
                 print("No es valido el formulario")
         elif "btnNuevoEntr" in request.POST:
-            shutil.rmtree('PaginaDjango/Datos')
-            os.mkdir('PaginaDjango/Datos')
+            shutil.rmtree('Datos')
+            os.mkdir('Datos')
     return render(request, "Entrenamiento.html", contexto)
 
 # ---- Función Entrenamiento-----------
@@ -254,7 +253,7 @@ def Entrenando(request):
     resnet50.Entrenar()
     global modelo_final, train_ds
     modelo_final, train_ds = CargarModelo(
-        "PaginaDjango/modelo.model", "PaginaDjango/Datos")
+        "modelo.model", "Datos")
     print("---------Modelo listo para usar-------")
     return render(request, "Entrenamiento.html", contexto)
 
@@ -287,7 +286,7 @@ def Prediccion2(request):
     print("--------Predicción Prueba--------")
     img_height, img_width = 180, 180
     impred = input("Ingrese la imagen: ")
-    path = f"PaginaDjango/static/Imagenes/{impred}.jpg"
+    path = f"static/Imagenes/{impred}.jpg"
     image = cv2.imread(path)
     image_resized = cv2.resize(image, (img_height, img_width))
     image = np.expand_dims(image_resized, axis=0)
@@ -342,11 +341,11 @@ def getObjecto(request):
                 if x <= xlimite and cont <= 2:
                     if cont == 2:
                         cv2.imwrite(
-                            'PaginaDjango/static/Imagenes/ifigura1.jpg', frame2)
+                            'static/Imagenes/ifigura1.jpg', frame2)
                             
 
                         # PARA IMAGEN EN EL PC
-                        filepath = 'PaginaDjango/static/Imagenes/ifigura1.jpg'
+                        filepath = 'static/Imagenes/ifigura1.jpg'
                         with open(filepath, mode='rb') as image_stream:
                             # Call API with remote image
                             tags_result_remote = cv_client.tag_image_in_stream(

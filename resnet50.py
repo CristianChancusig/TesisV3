@@ -14,7 +14,7 @@ import pathlib
 
 
 def Entrenar():
-    direccionCristian = "PaginaDjango/Datos"
+    direccionCristian = "Datos"
     data_dir = direccionCristian
     data_dir = pathlib.Path(data_dir)
 
@@ -61,4 +61,4 @@ def Entrenar():
     print("-----------FIN------------")
 
     # ----Guardar el modelo
-    resnet_model.save('PaginaDjango/modelo.model')
+    resnet_model.save('modelo.model')
