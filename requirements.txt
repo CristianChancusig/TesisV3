@@ -1,5 +1,4 @@
 absl-py==1.0.0
-arandr==0.1.10
 asgiref==3.5.0
 astroid==2.5.1
 asttokens==2.0.4
