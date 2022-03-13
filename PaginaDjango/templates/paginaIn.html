@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h2>Red Azure</h2>
+<div class="grid-container">
+    <div class="Cam1"><h3>Cámara 1</h3></div>
+    <!-- Botones -->
+    <div>
+        <form action="/Activar1">
+            <input type="submit" id="btnAct1" onclick="btnCapAct()" value="Activar">
+            <!-- <button id="btnAct1">Activar</button> -->
+        </form>
+    </div>
+    <div>
+        <form action="/Capturar">            
+            <input type="submit" id="btnCap1" value="Capturar">
+        </form>
+    </div>
+    <div>
+        <form action="/Apagar1">
+            <!-- <input type="button" id="btnPar1" onclick="btnCapAct()" value="Apagar"> -->
+            <input type="submit" id="btnPar1" onclick="btnCapAct()" value="Apagar">
+            <!-- <button id="btnPar1">Apagar</button> -->
+        </form>
+    </div>
+
+    <!-- Funciones de bloqueo -->
+    <script type="text/javascript">
+        function btnCapAct(){
+            document.getElementById('btnCap1').disabled=false
+        }
+        function btnCapDesc(){
+            document.getElementById('btnCap1').disabled=true
+        }
+    </script>
+    <!-- Cámara -->
+    <div class="Cam1">
+        {% if OnOff1 == 'on' %}
+        <img src="{% url 'videostream' %}">
+        {% elif CapImg == 'Foto1' %}
+        <img src='{% static "/Imagenes/Pr.jpg" %}' alt="No se encontró la imagen" width="300px">
+        {% else %}
+        <b>La cámara está apagada</b>
+        {% endif %}
+    </div>
+    <!-- Resultado y Selección de objeto -->
+    <div class="Cam1">
+        <form method="post">{% csrf_token %}
+            <select name="slcObj">
+                <option>Objeto 1</option>
+                <option>Objeto 2</option>
+            </select>
+            Seleccione la etiqueta:
+            <select name="listObjR">
+                {% if ListObj %}
+                    {% for objetos in ListObj %}
+                    <option>{{objetos}}</option>
+                    {% endfor %}
+                {% else %}
+                    <option disabled>Vacío</option>
+                {% endif %}
+            </select>            
+            <input type="submit" value="Enviar" name="BtnObjR"/>
+        </form>
+    </div>
+</div>
+<div>
+    Nota: Si no se encontró la etiqueta que busca, usar la opción de entrenamiento.
+</div>
+<div>
+    <h2>Los objetos a clasificar son</h2>
+</div>
+<form method="post">{% csrf_token %}
+    Objeto 1: {{Obj1}} <br>
+    Objeto 2: {{Obj2}} <br>
+</form>
+<form action="/PruebaCamara">
+    <input type="submit" value="Empezar" name="RedObj">
+</form>
+<!-- <input name="txtImURL" type="text"/><br> -->
+
+<br>
+<!-- Ejemplo -->
+<!-- 
+<form method="post">{% csrf_token %}
+    Ingrese la URL<br>
+    <input name="txtImURL" type="text"/><br>
+    <input type="submit" value="Enviar" disabled/><br>
+    Lo detectado es <br>
+    {{TagsI}} <br>
+    <img src={{IURL}} alt="No se encontró la imagen" width="300px" height="auto">           
+</form> -->
+{% endblock %}

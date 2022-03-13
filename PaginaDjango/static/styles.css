@@ -1,0 +1,47 @@
+body {
+  background: lightgrey;
+}
+#container {
+  color: red;
+  border: 1px solid black;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  background: gray;
+  width: 90%;
+  max-width: 100%;
+  margin: auto;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: white;
+  padding: 20px;
+  display: block;
+}
+
+.menu li {
+  display: inline-block;
+  text-align: center;
+}
+
+.menu li a:hover {
+  background: lightskyblue;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.grid-container div {
+  background-color: #7f9ee5;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.Cam1 {
+  grid-column: 1/4;
+}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h2>Entrenamiento</h2>
+<p>Tomar mínimo 10 fotos del objeto que desea entrenar</p>
+
+<div class="grid-container">
+    <div class="Cam1"><h3>Cámara</h3></div>
+    <div class="Cam1">
+        <form method="post">{% csrf_token %}
+            <input type="submit" value="Nuevo Entrenamiento" name="btnNuevoEntr"/>
+        </form>
+    </div>
+    <div class="Cam1">
+        <form method="post">{% csrf_token %}
+            <select name="slcObTag">
+                <option>Objeto 1</option>
+                <option>Objeto 2</option>
+            </select>
+            Ingrese la etiqueta: 
+            <input name="txtTag" type="text">
+            <input type="submit" value="Enviar" name="btnTags"/>
+        </form>
+    </div>
+    <div class="Cam1">
+        Fotos de :
+        {% if SelecREn == 'Objeto 1'%}
+            {{Obj1En}}
+        {% else %}        
+            {{Obj2En}}
+        {% endif %}
+    </div>
+    <!-- Botones -->
+    <div>
+        <form action="/ActivarEn">
+            <button id="btnActEn" >Activar</button>
+        </form>
+    </div>
+    <div>
+        <form method="post">{% csrf_token %}
+            <input type="submit" name="btnCapEn" value="Capturar">
+        </form>
+    </div>
+    <div>
+        <form action="/ApagarEn">
+            <button id="btnPar1">Apagar</button>
+        </form>
+    </div>
+    <!-- Cámara -->
+    <div class="Cam1">
+        {% if OnOff1 == 'on' %}
+        <img src="{% url 'videostream' %}">
+        {% elif CapImg == 'Foto1' %}
+        <img src='{% static "/Imagenes/Pr.jpg" %}' alt="No se encontró la imagen">
+        {% else %}
+        <b>La cámara está apagada</b>
+        {% endif %}
+    </div>
+    <div class="Cam1">
+        <form action="/Entrenando">
+            <input name="btnEntrenar" value="Entrenamiento" type="submit">
+        </form>
+    </div>
+</div>
+<div>
+    <h2>Los objetos a clasificar son</h2>
+</div>
+<form method="post">{% csrf_token %}
+    Objeto 1: {{Obj1En}} <br>
+    Objeto 2: {{Obj2En}} <br>
+</form>
+<form action="/Prediccion2">
+    <input type="submit" value="Empezar" name="btnEmpezarEn">
+</form>
+{% endblock %}
