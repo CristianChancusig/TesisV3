@@ -139,8 +139,8 @@ ssh-import-id==5.10
 tensorboard==2.8.0
 tensorboard-data-server==0.6.1
 tensorboard-plugin-wit==1.8.1
-tensorflow @ file:///home/pi/Desktop/Tesis/tensorflow-2.8.0-cp39-cp39-linux_aarch64.whl
-tensorflow-io-gcs-filesystem @ file:///home/pi/Desktop/Tesis/io/dist/tensorflow_io_gcs_filesystem-0.23.1-cp39-cp39-linux_aarch64.whl
+tensorflow==2.8.0 
+tensorflow-io-gcs-filesystem==0.24.0
 termcolor==1.1.0
 tf-estimator-nightly==2.8.0.dev2021122109
 thonny==3.3.14
